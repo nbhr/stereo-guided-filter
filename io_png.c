@@ -141,13 +141,14 @@ static void *_io_png_read_abort(FILE * fp,
  */
 static void *io_png_read_raw(const char *fname,
                              size_t * nxp, size_t * nyp, size_t * ncp,
-                             int png_transform, int dtype)
+                             int png_transform_, int dtype)
 {
     png_byte png_sig[PNG_SIG_LEN];
     png_structp png_ptr;
     png_infop info_ptr;
     png_bytepp row_pointers;
     png_bytep row_ptr;
+    int volatile png_transform = png_transform_;
     /* volatile: because of setjmp/longjmp */
     FILE *volatile fp = NULL;
     void *data = NULL;
